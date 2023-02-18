@@ -141,7 +141,7 @@ LOG_DEBUG=0
 
 # shellcheck source=/etc/os-release
 export DISTRO=$(source /etc/os-release && echo "${NAME}")
-export KBUILD_BUILD_HOST=$(uname -a | awk '{print $2}')
+export KBUILD_BUILD_HOST=arch
 export CI_BRANCH=$(git rev-parse --abbrev-ref HEAD)
 TERM=xterm
 
