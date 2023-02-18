@@ -1509,6 +1509,21 @@ static int dwc3_remove(struct platform_device *pdev)
 	 */
 	res->start -= DWC3_GLOBALS_REGS_START;
 
+	return ret;
+}
+
+static int dwc3_remove(struct platform_device *pdev)
+{
+	struct dwc3	*dwc = platform_get_drvdata(pdev);
+	struct resource *res = platform_get_resource(pdev, IORESOURCE_MEM, 0);
+
+	/*
+	 * restore res->start back to its original value so that, in case the
+	 * probe is deferred, we don't end up getting error in request the
+	 * memory region the next time probe is called.
+	 */
+	res->start -= DWC3_GLOBALS_REGS_START;
+
 	dwc3_debugfs_exit(dwc);
 	dwc3_gadget_exit(dwc);
 	pm_runtime_allow(&pdev->dev);
