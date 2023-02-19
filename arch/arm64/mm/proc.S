@@ -521,6 +521,10 @@ ENTRY(__cpu_setup)
 	 */
 	mrs	x9, ID_AA64MMFR1_EL1
 	and	x9, x9, #0xf
+	 * via capabilities.
+	 */
+	mrs	x9, ID_AA64MMFR1_EL1
+	and	x9, x9, #0xf
 	cbz	x9, 1f
 	orr	x10, x10, #TCR_HA		// hardware Access flag update
 1:
